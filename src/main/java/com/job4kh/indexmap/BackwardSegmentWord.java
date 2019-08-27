@@ -92,7 +92,7 @@ public class BackwardSegmentWord implements WordSegmentation{
                             NumericComputedIndexer indexer = numericComputedIndexCollection.getEligibleIndexer( possibleWord );
                             if( indexer !=null ) {
                                 segmentResult.insertAtFirst( indexer.getWord());
-                                i = i + indexer.getWord().length() +1;
+                                i = i - indexer.getWord().length() +1;
                                 found = true;
                                 break;
                             }

@@ -34,7 +34,9 @@ public class IndexUtil {
         NumericComputedIndexCollection numericComputedIndexCollection = new NumericComputedIndexCollection();
         wordSet.forEach( it-> {
             indexCollection.index( it);
-            numericComputedIndexCollection.index( it);
+            if( NumericComputedIndexChecker.isEligible( it)) {
+                numericComputedIndexCollection.index( it);//add index only eligible word
+            }
         });
         return new AllIndexCollection( indexCollection, numericComputedIndexCollection);
     }
