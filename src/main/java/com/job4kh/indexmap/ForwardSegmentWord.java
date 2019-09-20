@@ -38,7 +38,7 @@ public class ForwardSegmentWord implements WordSegmentation{
                 do {
                     long startBinSearch = System.currentTimeMillis();
                     startPosition = binSearch( length, indices);
-                    System.out.println("bin search take :"+(System.currentTimeMillis()-startBinSearch));
+//                    System.out.println("bin search take :"+(System.currentTimeMillis()-startBinSearch));
                     length--;
                     if( startPosition > -1) {
                         break;

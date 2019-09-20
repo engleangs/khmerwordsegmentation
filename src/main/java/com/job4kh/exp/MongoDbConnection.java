@@ -1,5 +1,6 @@
 package com.job4kh.exp;
 
+import com.job4kh.crawler.BasicWebCrawler;
 import com.job4kh.crawler.WebItem;
 import com.job4kh.crawler.WebPage;
 import com.job4kh.tokenizer.task.SegmentTask;
@@ -168,6 +169,15 @@ public class MongoDbConnection
         }
 
         getDatabase().getCollection( SEGMENT_COLLECTION ).insertMany( documents);
+    }
+
+    public void putUrl(String siteName, List<BasicWebCrawler.WebUrl>urls) {
+        List<Document> documents = new ArrayList<>();
+        for(BasicWebCrawler.WebUrl url:urls) {
+            Document document = new Document("url",url.getUrl()).append("title",url.getTitle());
+            documents.add( document);
+        }
+        getDatabase().getCollection("web_url").insertMany( documents);
     }
 
 

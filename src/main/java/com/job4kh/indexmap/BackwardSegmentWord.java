@@ -30,7 +30,7 @@ public class BackwardSegmentWord implements WordSegmentation{
         StringBuffer buffer = new StringBuffer(phrase);
         StringBuffer unknownWord = new StringBuffer();
         for(int i=buffer.length()-1;i>=0;i--) {
-            System.out.println("index i :"+i);
+            //System.out.println("index i :"+i);
             char ch = buffer.charAt(i);
             if( indexCollection.getBackwardSet().containsKey( ch)) {
                 IndexHolder indexHolder = indexCollection.getBackwardSet().get(ch);//get index holder
@@ -41,14 +41,14 @@ public class BackwardSegmentWord implements WordSegmentation{
                 do {
                     long startBinSearch  = System.currentTimeMillis();
                     endPosition = binSearch( length, indices);
-                    System.out.println("bin search take :"+(System.currentTimeMillis()-startBinSearch));
-                    System.out.println("end position :"+endPosition);
+//                    System.out.println("bin search take :"+(System.currentTimeMillis()-startBinSearch));
+//                    System.out.println("end position :"+endPosition);
                     length--;
                     if( endPosition > -1) {
                         break;
                     }
                 }while (length > 0);
-                System.out.println("end position :"+endPosition);
+                //System.out.println("end position :"+endPosition);
 
                 if( endPosition > -1)
                 {

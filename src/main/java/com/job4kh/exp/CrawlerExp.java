@@ -20,6 +20,7 @@ public class CrawlerExp
             System.out.println(" => "+BaseWebsiteConfig.CRAWL_WEB_PROPS[i]);
 
         }
+
         int choice = scanner.nextInt();
         if( choice < BaseWebsiteConfig.WEBISTES.length +1 && choice > 0)
         {

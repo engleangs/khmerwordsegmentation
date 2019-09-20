@@ -30,7 +30,7 @@ public class JumpIndexDemoApp {
         "សាលារៀនជាប្រភពមួយនៃចំណេះដឹង"
     };
     static void testClean(){
-        CleanTextUtil cleanTextUtil = new CleanTextUtil(KhmerCharacterSet.SPACE_SET,KhmerCharacterSet.DELIMETER, KhmerCharacterSet.DIGIT_SET);
+        CleanTextUtil cleanTextUtil = new CleanTextUtil(KhmerCharacterSet.SPACE_SET,KhmerCharacterSet.DELIMITER, KhmerCharacterSet.DIGIT_SET);
         for(String word:arrWords) {
             List<CleanTextUtil.CleanText> result = cleanTextUtil.cleanText( word);
             for (CleanTextUtil.CleanText cleanText : result) {
@@ -43,9 +43,7 @@ public class JumpIndexDemoApp {
 
     public static void main(String[] args)
     {
-
         try {
-
             final KhmerWordTrainData khmerWordTrainData = getWordTrainData();
             AllIndexCollection collection = IndexUtil.allIndexCollection( khmerWordTrainData.getWordSet());
             final ForwardSegmentWord forwardSegmentWord = new ForwardSegmentWord( collection.getIndexCollection(), collection.getNumericComputedIndexCollection(), khmerWordTrainData.getWordSet());
@@ -53,22 +51,23 @@ public class JumpIndexDemoApp {
             int totalError = 0;
             int totalSegment = 0;
             int totalNonSegment = 0;
-            CleanTextUtil cleanTextUtil = new CleanTextUtil(KhmerCharacterSet.SPACE_SET,KhmerCharacterSet.DELIMETER, KhmerCharacterSet.DIGIT_SET);
+            CleanTextUtil cleanTextUtil = new CleanTextUtil(KhmerCharacterSet.SPACE_SET,KhmerCharacterSet.DELIMITER, KhmerCharacterSet.DIGIT_SET);
             for( WebItem item : webItems)
             {
-
                 List<CleanTextUtil.CleanText>cleanTexts = cleanTextUtil.cleanText( item.getRawText());
                 System.out.println("Website URI :"+item.getUrl());
                 for(CleanTextUtil.CleanText cleanText:cleanTexts)
                 {
                     if( cleanText.getType() == CleanTextUtil.TextType.Number
                             || cleanText.getType() == CleanTextUtil.TextType.English
-                            || khmerWordTrainData.getWordSet().contains( cleanText.getPhrase()) ) {
+                            || cleanText.getType() == CleanTextUtil.TextType.Delimiter
+                            || cleanText.getType() == CleanTextUtil.TextType.SpaceOrEnd
+                            || khmerWordTrainData.getWordSet().contains( cleanText.getPhrase())
+                    ) {
                         totalNonSegment++;
                         System.out.println("no need segment : "+ cleanText.getPhrase());
                         continue;
                     }
-
                     SegmentResult segmentResult  = forwardSegmentWord.doSegment( cleanText.getPhrase());
                     List<String> words = segmentResult.getWords();
                     StringBuilder resultBuilder = new StringBuilder( "To Segment for : ").append( cleanText.getPhrase() );
@@ -83,7 +82,6 @@ public class JumpIndexDemoApp {
                     if( segmentResult.getTotalError() > 0) {
                         System.out.println("=========To check ==================== Error : "+segmentResult.getTotalError() +", "+item.getUrl());
                     }
-
                 }
 
             }

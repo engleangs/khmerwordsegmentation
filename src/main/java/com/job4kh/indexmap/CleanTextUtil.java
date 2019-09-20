@@ -28,7 +28,10 @@ public class CleanTextUtil {
         Text,
         Number,
         English,
+        SpaceOrEnd,
+        Delimiter
     }
+
 
     public static class CleanText{
         private String phrase;
@@ -41,6 +44,11 @@ public class CleanTextUtil {
             this.type = textType;
             builder = new StringBuilder();
 
+        }
+        public CleanText(TextType textType,String phrase) {
+            this.phrase = phrase;
+            this.type = textType;
+            this.builder = new StringBuilder();
         }
         public void add(char ch) {
             builder.append(ch);
@@ -79,6 +87,17 @@ public class CleanTextUtil {
         public void setType(TextType type) {
             this.type = type;
         }
+        public static final CleanText SPACE = new CleanText(" ",TextType.SpaceOrEnd);
+        public static CleanText instanceOf( Set<Character> eliminateCharacter, Set<Character> spaceAndEnd, char ch) {
+            if( spaceAndEnd.contains(ch) ) {
+                return SPACE;
+            }
+            else if( eliminateCharacter.contains( ch)) {
+                return new CleanText( String.valueOf(ch), TextType.Delimiter );
+            }
+            throw  new RuntimeException("Invalid character");
+        }
+
     }
 
     boolean NonKhmerLang(char ch) {
@@ -100,6 +119,7 @@ public class CleanTextUtil {
                     if( spaceAndEnd.contains(ch) ||eliminateCharacter.contains( ch)) {
                         if(cleanText.getCurrentLength() > 0) {
                             result.add( cleanText.flush());
+                            result.add( CleanText.instanceOf( spaceAndEnd, eliminateCharacter, ch));
                             cleanText = new CleanText();
                         }
                     }
@@ -128,6 +148,7 @@ public class CleanTextUtil {
                     if( spaceAndEnd.contains(ch) || eliminateCharacter.contains(ch)) {
                         if(cleanText.getCurrentLength() > 0) {
                             result.add( cleanText.flush());
+                            result.add( CleanText.instanceOf( spaceAndEnd, eliminateCharacter, ch));
                             cleanText = new CleanText();
                         }
 
@@ -159,6 +180,7 @@ public class CleanTextUtil {
                     if( spaceAndEnd.contains(ch) || eliminateCharacter.contains(ch)) {
                         if(cleanText.getCurrentLength() > 0) {
                             result.add( cleanText.flush());
+                            result.add( CleanText.instanceOf( spaceAndEnd, eliminateCharacter, ch));
                             cleanText = new CleanText();
                         }
 

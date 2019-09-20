@@ -14,7 +14,7 @@ public class KhmerCharacterSet {
 
     };
 
-    public final static Set<Character>DELIMETER = new HashSet<Character>(){
+    public final static Set<Character> DELIMITER = new HashSet<Character>(){
         {add('។');}
         {add('៕');}
         {add('៖');}

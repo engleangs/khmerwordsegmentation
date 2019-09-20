@@ -84,7 +84,7 @@ public class NumericComputedIndexCollection {
                 }
              }
         }
-        System.out.println("Eligible indexer take :"+(System.currentTimeMillis() - startTime));
+        //System.out.println("Eligible indexer take :"+(System.currentTimeMillis() - startTime));
         return null;
 
     }

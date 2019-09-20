@@ -1,14 +1,11 @@
 package com.job4kh.indexmap.test;
 
-import com.job4kh.exp.MongoDbConnection;
 import com.job4kh.indexmap.*;
 import com.job4kh.tokenizer.SegmentResult;
 import com.job4kh.tokenizer.data.KhmerCharacterSet;
-import com.job4kh.tokenizer.data.KhmerLanguage;
 import com.job4kh.tokenizer.data.KhmerWordTrainData;
 import com.job4kh.tokenizer.loader.DataLoader;
 import com.job4kh.tokenizer.loader.FileLoader;
-import com.job4kh.tokenizer.loader.MongoDbLoader;
 
 import java.util.List;
 
@@ -38,7 +35,7 @@ public class TestAll {
         final ForwardSegmentWord forwardSegmentWord = new ForwardSegmentWord( allIndexCollection.getIndexCollection(), allIndexCollection.getNumericComputedIndexCollection(),  khmerWordTrainData.getWordSet());
         final BackwardSegmentWord backwardSegmentWord = new BackwardSegmentWord( allIndexCollection.getIndexCollection(), allIndexCollection.getNumericComputedIndexCollection(),  khmerWordTrainData.getWordSet());
         final BidirectionalSegmentWord bidirectionalSegmentWord = new BidirectionalSegmentWord( allIndexCollection.getIndexCollection(),allIndexCollection.getNumericComputedIndexCollection(), khmerWordTrainData.getWordSet());
-        CleanTextUtil cleanTextUtil = new  CleanTextUtil(KhmerCharacterSet.SPACE_SET,KhmerCharacterSet.DELIMETER, KhmerCharacterSet.DIGIT_SET);
+        CleanTextUtil cleanTextUtil = new  CleanTextUtil(KhmerCharacterSet.SPACE_SET,KhmerCharacterSet.DELIMITER, KhmerCharacterSet.DIGIT_SET);
 
         for (String word:words) {
             SegmentModel forwardModel = new SegmentModel();

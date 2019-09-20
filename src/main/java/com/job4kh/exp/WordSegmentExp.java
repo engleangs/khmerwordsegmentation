@@ -6,9 +6,6 @@ import com.job4kh.tokenizer.data.KhmerWordTrainData;
 import com.job4kh.tokenizer.loader.DataLoader;
 import com.job4kh.tokenizer.loader.MongoDbLoader;
 
-import javax.sound.midi.Soundbank;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class WordSegmentExp {
@@ -28,9 +25,9 @@ public class WordSegmentExp {
         long startLoadData  = System.currentTimeMillis();
         final KhmerWordTrainData khmerWordTrainData = getWordTrainData();
         System.out.println("finish initialization "+(((double)System.currentTimeMillis()-startLoadData)/1000));
-        backwardSegmentation = new BackwardMatchingSegment(KhmerCharacterSet.SPACE_SET, KhmerCharacterSet.DELIMETER, KhmerCharacterSet.DIGIT_SET, khmerWordTrainData);
-        forwardSegmentation = new ForwardMatchingSegment(KhmerCharacterSet.SPACE_SET, KhmerCharacterSet.DELIMETER, KhmerCharacterSet.DIGIT_SET, khmerWordTrainData);
-        LongestMatchingTokenizer longestMatchingTokenizer = new LongestMatchingTokenizer(KhmerCharacterSet.SPACE_SET, KhmerCharacterSet.DELIMETER, KhmerCharacterSet.DIGIT_SET, khmerWordTrainData);
+        backwardSegmentation = new BackwardMatchingSegment(KhmerCharacterSet.SPACE_SET, KhmerCharacterSet.DELIMITER, KhmerCharacterSet.DIGIT_SET, khmerWordTrainData);
+        forwardSegmentation = new ForwardMatchingSegment(KhmerCharacterSet.SPACE_SET, KhmerCharacterSet.DELIMITER, KhmerCharacterSet.DIGIT_SET, khmerWordTrainData);
+        LongestMatchingTokenizer longestMatchingTokenizer = new LongestMatchingTokenizer(KhmerCharacterSet.SPACE_SET, KhmerCharacterSet.DELIMITER, KhmerCharacterSet.DIGIT_SET, khmerWordTrainData);
         System.out.println("Input your search in khmer : ");
         Scanner scanner = new Scanner(System.in);
         String text = scanner.nextLine();

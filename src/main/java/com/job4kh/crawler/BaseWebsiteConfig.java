@@ -12,4 +12,5 @@ public class BaseWebsiteConfig {
             new CrawlWebProp("http://km.rfi.fr/general/rss", "item", "title","description","content", "link"),
             new CrawlWebProp("https://khmer.voanews.com/api/z$ytretqur", "item", "title","description","content", "link"),
     };
+
 }

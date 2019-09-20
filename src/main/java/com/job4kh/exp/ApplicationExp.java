@@ -60,7 +60,7 @@ public class ApplicationExp
         System.out.println("Initialize configuration");
         khmerWordTrainData = getWordTrainData();
         Scanner scanner = new Scanner(System.in);
-        wordTokenizer = new LongestMatchingTokenizer(KhmerCharacterSet.SPACE_SET, KhmerCharacterSet.DELIMETER, KhmerCharacterSet.DIGIT_SET, khmerWordTrainData);
+        wordTokenizer = new LongestMatchingTokenizer(KhmerCharacterSet.SPACE_SET, KhmerCharacterSet.DELIMITER, KhmerCharacterSet.DIGIT_SET, khmerWordTrainData);
         while (true)
         {
             System.out.println("************************************");
