@@ -88,4 +88,11 @@ public class SegmentResult {
     public void setTypeName(String typeName) {
         this.typeName = typeName;
     }
+
+    @Override
+    public String toString() {
+        return "total "+totalSegment +"\n"
+                +" error : "+totalError +"\n"
+                +" time : "+takeTime+"\n";
+    }
 }

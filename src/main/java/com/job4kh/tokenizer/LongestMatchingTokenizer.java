@@ -73,34 +73,35 @@ public class LongestMatchingTokenizer implements WordTokenizer
     @Override
     public SegmentResult tokenize(String text)
     {
+        long startTime = System.currentTimeMillis();
         List<String>words = splitWord( text);
-        System.out.println("finish split word :"+words.size());
-        words.forEach(it->{
-            System.out.println("->"+it );
-        });
+      //  System.out.println("finish split word :"+words.size());
+//        words.forEach(it->{
+//            System.out.println("->"+it );
+//        });
         List<String> result = new ArrayList<>();
         List<String>errors = new ArrayList<>();
         for(String word : words )
         {
-            System.out.println("begin to segment word :"+word);
+//            System.out.println("begin to segment word :"+word);
             if( khmerWordTrainData.getWordSet().contains(word))
             {
-                System.out.println("word exist : "+word);
+//                System.out.println("word exist : "+word);
                 result.add( word);
             }
             else {
                SegmentResult backwardResult = backwardSegmentation.doSegment( word);
                SegmentResult forwardResult = forwardSegmentation.doSegment( word);
                SegmentResult selected = backwardResult;
-                System.out.println("backward : "+backwardResult.getTotalError() +" ");
-                backwardResult.getWords().forEach(it->{
-                    System.out.println("-> "+it);
-                });
+//                System.out.println("backward : "+backwardResult.getTotalError() +" ");
+//                backwardResult.getWords().forEach(it->{
+//                    System.out.println("-> "+it);
+//                });
 
-                System.out.println("forward : "+forwardResult.getTotalError() +" ");
-                forwardResult.getWords().forEach(it->{
-                    System.out.println("-> "+it);
-                });
+//                System.out.println("forward : "+forwardResult.getTotalError() +" ");
+//                forwardResult.getWords().forEach(it->{
+//                    System.out.println("-> "+it);
+//                });
 
 
                 if( selected.getTotalError() > forwardResult.getTotalError())
@@ -118,7 +119,7 @@ public class LongestMatchingTokenizer implements WordTokenizer
         }
         SegmentResult segmentResult =  new SegmentResult(errors.size(),result.size(), result);
         segmentResult.setErrors( errors);
-
+        segmentResult.setTakeTime( System.currentTimeMillis() - startTime);
         return segmentResult;
 
     }
