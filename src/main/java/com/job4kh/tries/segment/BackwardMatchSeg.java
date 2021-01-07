@@ -64,7 +64,6 @@ public class BackwardMatchSeg {
                     if (unknown.length() > 0) {
                         result.addUnknown(unknown);
                     }
-
                 }
                 break;
 
