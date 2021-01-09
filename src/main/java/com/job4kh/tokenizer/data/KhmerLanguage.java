@@ -9,4 +9,20 @@ public class KhmerLanguage implements Language {
         int code = (int)ch;
         return ( code >= MIN_CODE) && ( code <= MAX_CODE);
     }
+    public static boolean isNumber(String word){
+        for(int i =0;i< word.length();i++) {
+            if(! KhmerCharacterSet.DIGIT_SET.contains( word.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+    public  boolean isKhmer(String word){
+        for(int i =0;i<word.length();i++){
+            if( !is(word.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

@@ -35,9 +35,9 @@ public class BkTreeBuilder {
         }
         return dp[ m][n];
     }
-    public static BkTree fromFile( String path) throws IOException {
+    public static ClassicBkTree fromFile(String path) throws IOException {
         List<String> items =  Files.readAllLines(Paths.get(path), StandardCharsets.UTF_8);
-        BkTree bkTree = new BkTree();
+        ClassicBkTree classicBkTree = new ClassicBkTree();
         final int[] max = {0};
         items.forEach(it->{
             if(!it.startsWith("#"))
@@ -47,12 +47,12 @@ public class BkTreeBuilder {
                 if( max[0] < word.length()) {
                     max[0] = word.length();
                 }
-                bkTree.add( word);
+                classicBkTree.add( word);
             }
 
         });
         System.out.println("max length :"+max[0]);
-        return bkTree;
+        return classicBkTree;
     }
     public static BkUTree ufromFile( String path) throws IOException {
         List<String> items =  Files.readAllLines(Paths.get(path), StandardCharsets.UTF_8);
@@ -72,9 +72,32 @@ public class BkTreeBuilder {
         });
         return bkTree;
     }
+    public static BKTree bkTree( String path, boolean isStrike) throws IOException {
+        List<String> items =  Files.readAllLines(Paths.get(path), StandardCharsets.UTF_8);
+        Distance distance = new LevensteinDistance();
+        if( isStrike) {
+            distance = new StrikeDistance();
+        }
+        BKTree bkTree = new BKTree( distance);
+        final int[] max = {0};
+        items.forEach(it->{
+            if(!it.startsWith("#"))
+            {
+                String[] arr = it.split("\t");
+                String word = arr[ 0];
+                if( max[0] < word.length()) {
+                    max[0] = word.length();
+                }
+                bkTree.add( word);
+            }
+
+        });
+        return bkTree;
+    }
+
     public static void main(String[] args) throws IOException {
-        BkTree bkTree = fromFile("data/wordset.txt");
-        List<String>words = bkTree.similarWords("មហាយុ");
+        ClassicBkTree classicBkTree = fromFile("data/wordset.txt");
+        List<String>words = classicBkTree.similarWords("មហាយុ");
         for(String word : words){
             System.out.println(" "+word);
         }

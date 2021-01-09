@@ -44,6 +44,11 @@ public class WebsiteScrapting {
         for(BasicWebCrawler.WebUrl url : urls) {
             threadPoolExecutor.execute(()->{
                 try {
+                    System.out.println("begin to get url : "+url.getUrl());
+                    if( url.getUrl().startsWith("http://www.freshnewsasia.comhttp://plus.freshnewsasia.com"))
+                    {
+                        url.setUrl( url.getUrl().replace("http://www.freshnewsasia.comhttp://plus.freshnewsasia.com","http://www.freshnewsasia.com"));
+                    }
                      SiteContent siteContent =    basicWebCrawler.getSiteContent( url.getUrl(),"div[itemprop=articleBody]");
                      if( siteContent != null) {
                          queue.add( siteContent );
@@ -64,6 +69,7 @@ public class WebsiteScrapting {
 
     public static void main(String[]args) throws IOException, InterruptedException {
         fetchContent();
+//        fetchUrl();
 
     }
 }

@@ -1,7 +1,9 @@
 package com.job4kh.tokenizer;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class SegmentResult {
     private int totalError;
@@ -10,6 +12,12 @@ public class SegmentResult {
     private List<String>errors;
     private long takeTime;
     private String typeName;
+    private Set<String> errorSet = new HashSet<>();
+
+    public Set<String> getErrorSet() {
+        return errorSet;
+    }
+
 
     public List<String> getErrors() {
         return errors;
@@ -64,6 +72,7 @@ public class SegmentResult {
         totalError++;
         errors.add(0 , word);
         words.add(0,word);
+        errorSet.add( word);
     }
 
     public void addUnknown(String word)

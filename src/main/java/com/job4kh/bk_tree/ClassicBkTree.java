@@ -8,7 +8,7 @@ import static com.job4kh.bk_tree.BkTreeBuilder.editDistance;
  * BK Tree implementation
  * using this link https://www.geeksforgeeks.org/bk-tree-introduction-implementation/
  */
-public class BkTree {
+public class ClassicBkTree {
     public static final int MAX_WORD_LENGTH = 45;
     public static final int MAX_WORD_NUMBER = 40000;
     public static final int TOLORRENCE_VALUE = 2;
@@ -100,23 +100,23 @@ public class BkTree {
        return result;
     }
     public static void main(String[] args){
-        BkTree bkTree = new BkTree();
+        ClassicBkTree classicBkTree = new ClassicBkTree();
         // dictionary words
         String dictionary[] = {"hell","help","shel","smell",
                 "fell","felt","oops","pop","oouch","halt"
         };
         for(String st:dictionary){
-            bkTree.add( st);
+            classicBkTree.add( st);
         }
         String w1 = "ops";
         System.out.println("similar of : "+w1);
-        List<String>similarities = bkTree.similarWords( w1);
+        List<String>similarities = classicBkTree.similarWords( w1);
         for(String w: similarities){
             System.out.println(" "+w);
         }
         String w2 = "helt";
         System.out.println("similar of : "+w2);
-        similarities = bkTree.similarWords( w2);
+        similarities = classicBkTree.similarWords( w2);
         for(String w: similarities){
             System.out.println(" "+w);
         }

@@ -58,6 +58,8 @@ public class NGramDataSource {
         return 10  / (this.n * Math.pow( 10, key.length()));
     }
 
+
+
     public List<String>segment(String text){
         if( text == null || text.length() ==0){
             return new ArrayList<>();

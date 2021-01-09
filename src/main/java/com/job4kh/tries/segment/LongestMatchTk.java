@@ -1,5 +1,6 @@
 package com.job4kh.tries.segment;
 
+import com.job4kh.corpus.WordTable;
 import com.job4kh.tokenizer.SegmentResult;
 import com.job4kh.tokenizer.data.EnglishLanguage;
 import com.job4kh.tries.SymbolTable;
@@ -15,6 +16,7 @@ public class LongestMatchTk {
     private BackwardMatchSeg backwardSegmentation;
     private ForwardMatchSeg forwardSegmentation;
     private SymbolTable triesKh;
+    private WordTable wordTable ;
 
 
     public LongestMatchTk(Set<Character> spaceAndEnd, Set<Character> eliminateCharacter, Set<Character> numbers, SymbolTable triesKh) {
@@ -58,10 +60,6 @@ public class LongestMatchTk {
     public SegmentResult tokenize(String text) {
         long startTime = System.currentTimeMillis();
         List<String> words = splitWord(text);
-        //  System.out.println("finish split word :" + words.size());
-//        words.forEach(it -> {
-//            System.out.println("->" + it);
-//        });
         List<String> result = new ArrayList<>();
         List<String> errors = new ArrayList<>();
         for (String word : words) {
@@ -72,25 +70,15 @@ public class LongestMatchTk {
             } else {
                 SegmentResult backwardResult = backwardSegmentation.doSegment(word);
                 SegmentResult forwardResult = forwardSegmentation.doSegment(word);
-                SegmentResult selected = backwardResult;
-                //  System.out.println("backward : " + backwardResult.getTotalError() + " ");
-//                backwardResult.getWords().forEach(it -> {
-//                   // System.out.println("-> " + it);
-//                });
-//
-//           //     System.out.println("forward : " + forwardResult.getTotalError() + " ");
-//                forwardResult.getWords().forEach(it -> {
-//                    System.out.println("-> " + it);
-//                });
-
-
-                if (selected.getTotalError() > forwardResult.getTotalError()) {
-                    selected = forwardResult;
-                } else if (selected.getTotalError() == forwardResult.getTotalError() && selected.getTotalSegment() < forwardResult.getTotalSegment()) {
-                    selected = forwardResult;
+                if( backwardResult.getTotalError() ==0) {
+                    int countMorethanAWord = 0;
+                  for(String w : backwardResult.getWords()) {
+                      if( wordTable.totalWord(w) >0) {
+                          countMorethanAWord++;
+                      }
+                  }
                 }
-                result.addAll(selected.getWords());
-                errors.addAll(selected.getErrors());
+
 
             }
         }

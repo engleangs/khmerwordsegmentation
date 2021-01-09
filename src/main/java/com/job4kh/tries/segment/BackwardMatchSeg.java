@@ -45,7 +45,6 @@ public class BackwardMatchSeg {
             }
 
             while (copyBuffer.length() > 0) {
-
                 String expectedWord = copyBuffer.toString();
                 if ((triesKh.contains(expectedWord))) {
                     result.add(expectedWord);
@@ -54,7 +53,6 @@ public class BackwardMatchSeg {
 
                 }
                 copyBuffer.deleteCharAt(copyBuffer.length() - 1);
-
 
             }
 

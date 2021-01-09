@@ -162,7 +162,7 @@ public class MongoDbConnection
                     .append("take",item.getSegmentResult().getTakeTime())
                     .append("totalError",item.getSegmentResult().getTotalError())
                     .append("type",type)
-                    .append("crated",new Date())
+                    .append("created",new Date())
 
                     ;
             documents.add( document);
@@ -178,6 +178,29 @@ public class MongoDbConnection
             documents.add( document);
         }
         getDatabase().getCollection("web_url").insertMany( documents);
+    }
+
+    public void unigram(List<String> words){
+        for(String w:words){
+            Bson inc = new Document().append("count",1);
+            Bson filter = Filters.eq("w", w);
+            Bson bson = new Document().append("w",w);
+            Bson update = new Document("$set", bson).append("$inc", inc);
+            UpdateOptions updateOptions = new UpdateOptions().upsert(true);
+            getDatabase().getCollection("unigram_word").updateOne( filter, update, updateOptions);
+        }
+    }
+
+    public void bigramWord(List<String> words){
+        for( String w : words){
+            Bson inc = new Document().append("count",1);
+            Bson filter = Filters.eq("w", w);
+            Bson bson = new Document().append("w",w);
+            Bson update = new Document("$set", bson).append("$inc", inc);
+            UpdateOptions updateOptions = new UpdateOptions().upsert(true);
+            getDatabase().getCollection("bigram_word").updateOne( filter, update, updateOptions);
+        }
+
     }
 
 
